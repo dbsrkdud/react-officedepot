@@ -1,6 +1,6 @@
 
 
-function Item() {
+function LoginPage() {
 
     return (
         <>
@@ -9,4 +9,4 @@ function Item() {
 
 }
 
-export default Item;
+export default LoginPage;

@@ -1,0 +1,9 @@
+.itemImg {
+    width: 150px;
+    height: 150px;
+}
+
+.item {
+    display: inline-block;
+    margin: 1%;
+}

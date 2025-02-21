@@ -7,16 +7,18 @@ import {Link} from "react-router-dom";
 
 function Header() {
     return (
-        <div className="header">
-            <div className="headerObj">
-                <Link to={"home"}><img src={logo} className="logo"/></Link>
+        <>
+            <div className="header">
+                <div className="logoDiv">
+                    <Link to={"/"}><img src={logo} className="logo"/></Link>
+                </div>
+                <div className="menuDiv">
+                    <Link to={"orderPage"}><img src={order} className="order"/></Link>
+                    <Link to={"cartPage"}><img src={cart} className="cart"/></Link>
+                    <Link to={"myPage"}><img src={myPage} className="myPage"/></Link>
+                </div>
             </div>
-            <div>
-                <Link to={"order"}><img src={order} className="order"/></Link>
-                <Link to={"cart"}><img src={cart} className="cart"/></Link>
-                <Link to={"myPage"}><img src={myPage} className="myPage"/></Link>
-            </div>
-        </div>
+        </>
     )
 }
 

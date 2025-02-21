@@ -1,23 +1,31 @@
-.header {
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    top: 0;
+header {
     width: 100%;
-    height: 10%;
-    padding-left: 3%;
-    padding-right: 3%;
-    padding-top: 2%;
-    //background-color: gray;
+    height: 5%;
+}
+
+.logoDiv {
+    float: left;
+    margin-left: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    display: inline-block;
+}
+
+.menuDiv {
+    float: right;
+    margin-right: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    display: inline-block;
 }
 
 .logo {
     width: auto;
-    height: 70px;
+    height: 60px;
 }
 
-.myPage, .order, .cart {
+.order, .cart, .myPage {
     width: auto;
-    height: 70px;
+    height: 60px;
     margin-left: 10px;
 }

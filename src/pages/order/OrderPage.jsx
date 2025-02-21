@@ -1,6 +1,6 @@
 
 
-function Order() {
+function OrderPage() {
 
     return (
         <>
@@ -10,4 +10,4 @@ function Order() {
 
 }
 
-export default Order;
+export default OrderPage;

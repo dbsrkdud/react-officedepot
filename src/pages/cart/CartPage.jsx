@@ -1,5 +1,6 @@
 
-function SignUp() {
+
+function CartPage() {
 
     return (
         <>
@@ -8,4 +9,4 @@ function SignUp() {
 
 }
 
-export default SignUp;
+export default CartPage;
