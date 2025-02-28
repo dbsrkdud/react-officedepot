@@ -1,0 +1,121 @@
+.LoginWrap {
+    padding: 1px 0 50px;
+    min-height: 100%;
+    background: #fff;
+}
+
+.LoginContainer {
+    background: #ffffff;
+
+    @media (min-width: 720px) {
+        padding: 1px 0 50px;
+        width: 384px;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.BorderAndText {
+    border-top: 1px solid #999999;
+    color: #999999;
+    display: flex;
+    justify-content: center;
+
+    span {
+        font-size: 12px;
+        margin-top: -8px;
+        background: #ffffff;
+        width: 130px;
+        text-align: center;
+    }
+}
+
+.EmailLoginContainer {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.EmailLoginInput {
+    width: 100%;
+    height: 44px;
+    border-radius: 2px;
+    border: 1px solid #b4b4b4;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    padding: 0 15px;
+    font-size: 14px;
+    outline: none;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.EmailLoginOption {
+    padding: 13px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #666666;
+    font-size: 11px;
+}
+
+.InputCheckbox {
+    display: inline-block;
+}
+
+.Bp {
+    -webkit-appearance: none;
+    background: transparent;
+    display: inline-block;
+    position: relative;
+    height: 18px;
+    width: 18px;
+    vertical-align: middle;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+
+    &:before {
+        cursor: pointer;
+        content: "";
+        display: inline-block;
+        line-height: 16px;
+        width: 16px;
+        height: 16px;
+        background: #fff;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        border: 1px solid #acacac;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        text-align: center;
+    }
+}
+
+.CommonButton {
+    margin-top: 6px;
+    width: 100%;
+    height: 44px;
+    border-radius: 2px;
+    border: none;
+    background: #f1c333;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 30px;
+    padding: 0 16px;
+    display: inline-block;
+    box-shadow: 0 1px 3px 0 rgb(220 220 220 / 30%);
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    transition: border-color 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    vertical-align: middle;
+}

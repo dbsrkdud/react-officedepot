@@ -1,5 +1,5 @@
-import "../assets/css/Banner.css"
 import {Carousel} from "react-bootstrap";
+
 import BannerImage01 from "../assets/images/banner_01.png";
 import BannerImage02 from "../assets/images/banner_02.png";
 import BannerImage03 from "../assets/images/banner_03.png";
@@ -7,7 +7,7 @@ import BannerImage03 from "../assets/images/banner_03.png";
 function Banner() {
 
     return (
-        <div className="banner">
+        <div className="banner mb-5">
             <Carousel>
                 <Carousel.Item>
                     <img src={BannerImage01} className="BannerImage01"/>

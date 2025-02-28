@@ -1,0 +1,205 @@
+.WrapLogin {
+    padding: 1px 0 50px;
+    min-height: 100%;
+    background: #fff;
+}
+
+.ReauthPhone {
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+}
+
+.LoginWrap {
+    padding: 1px 0 50px;
+    min-height: 100%;
+    background: #fff;
+}
+
+.LoginLogo {
+    padding-top: 40px;
+    text-align: center;
+    padding: 40px 0 0;
+}
+
+.LoginSection {
+    text-align: center;
+    margin-top: 50px;
+    border-top: 1px solid #333;
+    padding-bottom: 100px;
+}
+
+.LoginTitle {
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    position: relative;
+    top: -10px;
+    background: #fff;
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.Title {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+/*.SignupStep {*/
+/*    text-align: center;*/
+/*    margin: 45px 0 20px;*/
+
+/*    &.wrap {*/
+/*        text-align: center;*/
+/*        margin: 45px 0 20px;*/
+/*    }*/
+/*}*/
+
+.FormBlock {
+    text-align: left;
+    margin: 20px 0 0;
+}
+
+.FormBlockHead {
+    font-size: 14px;
+}
+
+.AsteriskRed {
+    color: #ff4b50;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.FormBlockBody {
+    text-align: left;
+}
+
+.InputTextSizeW {
+    &.formError {
+        cursor: default !important;
+    }
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.EmailInput {
+    font-size: 14px;
+    height: 48px;
+    background: #fff;
+    line-height: 16px;
+    border: 1px solid #acacac;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2px 8px;
+    border-radius: 2px;
+    appearance: none;
+}
+
+.FormError {
+    color: #ff4b50;
+    margin: 10px 0 0;
+    display: block;
+    cursor: default !important;
+}
+
+.InputTextSizeWTypeL {
+    box-sizing: border-box;
+    vertical-align: middle;
+    height: 48px;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.FormBlockCheckAllWrap {
+    text-align: left;
+    margin: 20px 0 0;
+}
+
+.Terms {
+    text-align: left;
+    margin: 20px 0 0;
+}
+
+.TermsHead {
+    border-bottom: 1px solid #333;
+    padding: 5px 0;
+}
+
+.InputCheckBox {
+    float: left;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.TermsLabel {
+    overflow: hidden;
+    display: block;
+    font-size: 14px;
+}
+
+.TermsBody {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+}
+
+.TermsItem {
+    margin-top: 5px;
+}
+
+.Terms1Label {
+    overflow: hidden;
+    display: block;
+    font-size: 14px;
+}
+
+.Terms2A {
+    text-decoration: underline;
+    overflow: hidden;
+    display: block;
+    font-size: 14px;
+}
+
+.Terms1Error {
+    color: #ff4b50;
+    margin: 10px 0 0;
+    display: block !important;
+    cursor: default !important;
+}
+
+.TermsError {
+    display: none;
+    cursor: default !important;
+    color: #ff4b50;
+    margin: 10px 0 0;
+}
+
+.FormBlockSubmit {
+    /*text-align: left;*/
+    margin: 20px 0 0;
+}
+
+.FormBlockBody {
+    /*text-align: left;*/
+}
+
+.BtnLogin {
+    /*border-radius: 2px;*/
+    /*text-align: center;*/
+    /*white-space: nowrap;*/
+    /*box-sizing: border-box;*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+    color: #fff;
+    background: #f1c333;
+    /*border: 1px solid #f1c333;*/
+    width: 100%;
+    /*height: 48px;*/
+    /*line-height: 48px;*/
+    /*font-size: 16px;*/
+}

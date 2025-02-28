@@ -1,10 +1,22 @@
-import React from "react";
+import {Row, Col} from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 
 function Category() {
     return (
-        <>
-            <div className="category">Category</div>
-        </>
+        <Container className="category mb-5">
+            <Row>
+                <Col><div>caterogy</div></Col>
+                <Col><div>caterogy</div></Col>
+                <Col><div>caterogy</div></Col>
+                <Col><div>caterogy</div></Col>
+            </Row>
+            <Row>
+                <Col><div>caterogy</div></Col>
+                <Col><div>caterogy</div></Col>
+                <Col><div>caterogy</div></Col>
+                <Col><div>caterogy</div></Col>
+            </Row>
+        </Container>
     )
 }
 

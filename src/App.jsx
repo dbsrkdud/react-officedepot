@@ -1,41 +1,44 @@
 import "./App.css";
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Header from "./components/Header.jsx";
-import NavBar from "./components/Navbar.jsx"
-import MainPage from "./pages/main/MainPage.jsx";
 import {Route, Routes} from "react-router-dom";
+
+import Header from "./components/Header.jsx";
+import MainPage from "./pages/main/MainPage.jsx";
+import SignUpPage from "./pages/signUp/SignUpPage.jsx";
+import LoginPage from "./pages/login/LoginPage.jsx";
 import OrderPage from "./pages/order/OrderPage.jsx";
 import CartPage from "./pages/cart/CartPage.jsx";
 import MyPage from "./pages/myPage/MyPage.jsx";
-import {Col} from "react-bootstrap";
 import ItemListPage from "./pages/item/ItemListPage.jsx";
-
+import ItemDetailPage from "./pages/item/ItemDetailPage.jsx";
+import OrderRetrievePage from "./pages/order/OrderRetrievePage.jsx";
+import InterestedPage from "./pages/interested/InterestedPage.jsx";
 
 function App() {
-
     return (
         <>
-            <Container>
+            <Container fluid={"xl"}>
                 <Row>
                     <Header />
                 </Row>
-                <Row>
-                    <NavBar />
-                </Row>
-                <Row>
-                    <Col>
-                        <Routes>
-                            <Route path="/" element={<MainPage />} />
-                            <Route path="/orderPage" element={<OrderPage />} />
-                            <Route path="/cartPage" element={<CartPage />} />
-                            <Route path="/myPage" element={<MyPage />} />
-                            <Route path="/itemListPage" element={<ItemListPage/>} />
-                        </Routes>
-                    </Col>
-                </Row>
+                {/*<Row className="mb-5">*/}
+                {/*    <NavBar />*/}
+                {/*</Row>*/}
             </Container>
-
+            <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/signUpPage" element={<SignUpPage />} />
+                <Route path="/loginPage" element={<LoginPage />} />
+                <Route path="/orderPage" element={<OrderPage />} />
+                <Route path="/cartPage" element={<CartPage />} />
+                <Route path="/myPage" element={<MyPage />} />
+                <Route path="/itemListPage" element={<ItemListPage/>} />
+                <Route path="/itemDetailPage/:id" element={<ItemDetailPage />} />
+                <Route path="/orderRetrievePage" element={<OrderRetrievePage />} />
+                <Route path="/interestedPage" element={<InterestedPage />}></Route>
+            </Routes>
         </>
     )
 }
