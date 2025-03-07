@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 import Category from "../../components/Category.jsx";
 import Item from "../../components/Item.jsx";
-import itemListApi from "../../services/ItemDataApi.jsx";
+import itemDataApi from "../../services/ItemDataApi.jsx";
 
 function ItemListPage (){
 
@@ -12,7 +12,7 @@ function ItemListPage (){
 
     const itemList = () => {
         const result = [];
-        itemListApi().item.forEach((item) => {
+        itemDataApi().item.forEach((item) => {
             result.push(<div className="itemDiv" key={item.id}><Link to={`/itemDetailPage/${item.id}`}><Item item={item} /></Link></div>);
         })
         return result;

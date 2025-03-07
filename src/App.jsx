@@ -9,12 +9,15 @@ import MainPage from "./pages/main/MainPage.jsx";
 import SignUpPage from "./pages/signUp/SignUpPage.jsx";
 import LoginPage from "./pages/login/LoginPage.jsx";
 import OrderPage from "./pages/order/OrderPage.jsx";
+import OrderRetrievePage from "./pages/order/OrderRetrievePage.jsx";
+import OrderDetailPage from "./pages/order/OrderDetailPage.jsx";
 import CartPage from "./pages/cart/CartPage.jsx";
 import MyPage from "./pages/myPage/MyPage.jsx";
 import ItemListPage from "./pages/item/ItemListPage.jsx";
 import ItemDetailPage from "./pages/item/ItemDetailPage.jsx";
-import OrderRetrievePage from "./pages/order/OrderRetrievePage.jsx";
 import InterestedPage from "./pages/interested/InterestedPage.jsx";
+
+import Sample from "./sample.jsx"
 
 function App() {
     return (
@@ -32,12 +35,16 @@ function App() {
                 <Route path="/signUpPage" element={<SignUpPage />} />
                 <Route path="/loginPage" element={<LoginPage />} />
                 <Route path="/orderPage" element={<OrderPage />} />
+                <Route path="/orderRetrievePage" element={<OrderRetrievePage />} />
+                <Route path="/orderDetailPage/:id" element={<OrderDetailPage />} />
                 <Route path="/cartPage" element={<CartPage />} />
                 <Route path="/myPage" element={<MyPage />} />
                 <Route path="/itemListPage" element={<ItemListPage/>} />
                 <Route path="/itemDetailPage/:id" element={<ItemDetailPage />} />
-                <Route path="/orderRetrievePage" element={<OrderRetrievePage />} />
                 <Route path="/interestedPage" element={<InterestedPage />}></Route>
+
+                <Route path="/sample" element={<Sample />}></Route>
+
             </Routes>
         </>
     )

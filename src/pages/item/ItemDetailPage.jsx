@@ -21,6 +21,17 @@ function ItemDetailPage (){
         setItemCnt(itemCnt + 1)
     }
 
+    // 장바구니
+    const itemCart = function() {
+        console.log(itemCnt)
+    }
+
+    // 관심상품
+    const itemInterested = function() {
+        console.log(itemCnt)
+    }
+
+
     return (
         <Container className="itemDetail">
             <Row>
@@ -44,8 +55,8 @@ function ItemDetailPage (){
                     </Row>
                     <Row className="row row-cols-auto">
                         <Link to={"/orderPage"}><Button variant="primary">구매하기</Button></Link>
-                        <Button variant="primary" style={ {marginRight : "2%"} }>장바구니</Button>
-                        <Button variant="primary">관심상품</Button>
+                        <Button onClick={ () => itemCart() } variant="primary" style={ {marginRight : "2%"} }>장바구니</Button>
+                        <Button onClick={ () => itemInterested() } variant="primary">관심상품</Button>
                     </Row>
                 </Col>
             </Row>

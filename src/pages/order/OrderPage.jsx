@@ -1,17 +1,29 @@
-import Container from "react-bootstrap/Container";
 import {Row, Col, Table} from "react-bootstrap";
-import Item from "../../components/Item.jsx";
-import Order from "../../components/Order.jsx";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 
-
 function OrderPage() {
+
+    const orderList = [
+        {
+            orderItemId: 'id_01',
+            orderItemImg: '/src/assets/images/item_01.jpg',
+            orderItemName: 'item_01',
+            orderItemcnt: 2,
+            orderItemPrice: 100000
+
+        },
+        {
+            orderItemId: 'id_02',
+            orderItemImg: '/src/assets/images/item_04.jpg',
+            orderItemName: 'item_04',
+            orderItemcnt: 5,
+            orderItemPrice: 20500
+        }
+    ]
 
     return (
         <>
-            <Order />
-            <Order />
             {/*<Container>*/}
             {/*    <Row>*/}
             {/*        <Col className="col-auto" style={ { display: "flex", float: "left" } }>주문자</Col>*/}
@@ -29,14 +41,53 @@ function OrderPage() {
             {/*        </Col>*/}
             {/*    </Row>*/}
             {/*</Container>*/}
+
+            <h2>주문하기</h2>
+
             <Table>
+                <thead>
+                    <tr>
+                        <th colSpan="2">상품</th>
+                        <th>수량</th>
+                        <th>판매가</th>
+                        <th>합계</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {
+                    orderList.map( (item) => (
+                        <>
+                            <tr>
+                                <td><img src={item.orderItemImg} className="itemImg"></img></td>
+                                <td>{item.orderItemName}</td>
+                                <td>{item.orderItemcnt}</td>
+                                <td>{item.orderItemPrice}</td>
+                                <td>{item.orderItemcnt * item.orderItemPrice}</td>
+                            </tr>
+                        </>
+                    ) )
+                }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colSpan="5" style={ {textAlign: "right"} }>총 금액 : </td>
+                    </tr>
+                </tfoot>
+
+            </Table>
+
+            <Table>
+                <thead>
+                    <tr>
+                        <th colSpan="2" style={ {textAlign: "left"} }>주문자정보</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
-                        <td>주문자정보</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>주문자</td>
+                        <td>이름</td>
                         <td style={ { textAlign: "left" } }><input type="text" /></td>
                     </tr>
                     <tr>
@@ -58,12 +109,14 @@ function OrderPage() {
             </Table>
 
             <Table>
-                <tbody>
+                <thead>
                     <tr>
-                        <td>총 주문금액</td>
-                        <td>배송비</td>
-                        <td>최종 결제금액</td>
+                        <th>총 주문금액</th>
+                        <th>배송비</th>
+                        <th>최종 금액</th>
                     </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td>10,000</td>
                         <td>0</td>
