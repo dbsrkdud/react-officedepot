@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import Banner from "../../components/Banner.jsx"
 import Item from "../../components/Item.jsx";
 import itemListApi from "../../services/ItemDataApi.jsx";
+import Title from "../../components/Title.jsx";
 
 function MainPage() {
 
@@ -17,7 +18,7 @@ function MainPage() {
         <>
             <Banner />
             <div className="itemList">
-                <h3>추천상품</h3>
+                <Title title="추천상품" />
                 {itemList}
             </div>
         </>

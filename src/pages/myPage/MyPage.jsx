@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import Title from "../../components/Title.jsx";
 
 
 function MyPage() {
@@ -10,7 +11,7 @@ function MyPage() {
 
     return (
         <>
-            <h3>마이페이지</h3>
+            <Title title="마이페이지" />
             <table className="3" border="1" style={ {marginLeft: "auto", marginRight: "auto", width: "70%"} }>
                 <tbody>
                     <tr>
@@ -25,6 +26,7 @@ function MyPage() {
                                 <Link to={"/interestedPage"}><Button variant="light">관심상품 보기</Button></Link>
                             </div>
                         </td>
+                        {/*<td>이름</td>*/}
                         <td>이름</td>
                         <td style={ {textAlign: "left"} }>OOO</td>
                     </tr>

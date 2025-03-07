@@ -72,9 +72,9 @@ function OrderDetailPage() {
                             <tr>
                                 <td><img src={item.orderItemImg} style={ {width: "150px"} } /></td>
                                 <td>{item.orderItemName}</td>
-                                <td>{item.orderItemcnt}</td>
-                                <td>{item.orderItemPrice}</td>
-                                <td>{item.orderItemcnt * item.orderItemPrice}</td>
+                                <td>{item.orderItemcnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                <td>{item.orderItemPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                <td>{(item.orderItemcnt * item.orderItemPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                             </tr>
                         </>
                     ))

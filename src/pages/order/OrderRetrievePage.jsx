@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 
 import "../../assets/css/OrderRetrieve.css";
 import {Link} from "react-router-dom";
+import Title from "../../components/Title.jsx";
 
 function OrderRetrievePage () {
 
@@ -23,7 +24,7 @@ function OrderRetrievePage () {
 
     return (
         <>
-            <h3>주문내역</h3>
+            <Title title="주문내역" />
             <Table>
                 <thead>
                     <tr>
@@ -43,7 +44,7 @@ function OrderRetrievePage () {
                         <>
                             <tr>
                                 <td>
-                                    {i + 1}ㄷ
+                                    {i + 1}
                                 </td>
                                 <td>
                                     <Link to={`/orderDetailPage/${order.orderId}`} >{order.orderId}</Link>
@@ -52,7 +53,7 @@ function OrderRetrievePage () {
                                     {order.orderDate}
                                 </td>
                                 <td>
-                                    {order.orderPrice}
+                                    {order.orderPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                                 </td>
                                 <td>
                                     {order.orderStatus}

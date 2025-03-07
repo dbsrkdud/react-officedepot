@@ -50,7 +50,7 @@ function ItemDetailPage (){
                     </Row>
                     <Row className="row row-cols-auto mb-4">
                         <Button variant="light" onClick={delItemCnt}>-</Button>
-                        <input className="" value={itemCnt} />
+                        <input className="" value={itemCnt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} />
                         <Button variant="light" onClick={addItemCnt}>+</Button>
                     </Row>
                     <Row className="row row-cols-auto">

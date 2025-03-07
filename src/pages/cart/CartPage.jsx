@@ -1,6 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import {Col} from "react-bootstrap";
+import {Col, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 import {Link} from "react-router-dom";
@@ -11,6 +11,7 @@ import "../../assets/css/Cart.css"
 import itemDataApi from "../../services/ItemDataApi.jsx";
 import {forEach} from "react-bootstrap/ElementChildren";
 import item from "../../components/Item.jsx";
+import Title from "../../components/Title.jsx";
 
 
 function CartPage() {
@@ -91,128 +92,72 @@ function CartPage() {
         itemCnt.push(1);
     }
 
-
     return (
         <>
-            <h3>장바구니</h3>
-            <Container style={ {border: "solid 1px black"} }>
-                <Row>
-                    <Col className="col-auto">
-                        <input type="checkbox" onChange={ (e) => handleAllCheck(e.target.checked) }
-                            checked={checkItems.length == cartItemList.length ? true : false} />
-                    </Col>
-                    <Col><h5>상품</h5></Col>
-                    <Col><h5>수량</h5></Col>
-                    <Col><h5>금액</h5></Col>
-                    <Col><h5>총 금액</h5></Col>
-                </Row>
+            <Title title="장바구니" />
 
+
+
+            <Table>
+                <thead>
+                    <tr>
+                        <th className="col-auto">
+                            <input type="checkbox" onChange={ (e) => handleAllCheck(e.target.checked) }
+                                   checked={checkItems.length == cartItemList.length ? true : false} />
+                        </th>
+                        <th className="col-auto">상품</th>
+                        <th className="col-3">수량</th>
+                        <th className="col-2">금액</th>
+                        <th className="col-2">총 금액</th>
+                    </tr>
+                </thead>
+                <tbody>
 
                 {
                     cartItemList.map( (e, i) => (
-                    <>
-                        <Row>
-                            <Col className="col-auto">
-                                <input type="checkbox" id={e.id} onChange={ (e) => handleSingleCheck(e.target.checked, e.target.id)}
-                                    checked={checkItems.includes(e.id) ? true : false} />
-                            </Col>
-                            <Col>{e.name}</Col>
-                            <Col className="col-auto">
-                                {/*<input defaultValue="1" onChange={ (e) => chgItemCnt(e) } />*/}
-                                {/*<Button variant="Light" onClick={ () => {*/}
-                                {/*    console.log("itemCnt : " + itemCnt);*/}
-                                {/*    }*/}
-                                {/*}>변경</Button>*/}
-                                <Button variant="light" onClick={ () => {
-                                    if(itemCnt[i] > 1) {
+                        <>
+                            <tr>
+                                <td className="col-auto">
+                                    <input type="checkbox" id={e.id} onChange={ (e) => handleSingleCheck(e.target.checked, e.target.id)}
+                                           checked={checkItems.includes(e.id) ? true : false} />
+                                </td>
+                                <td>{e.name}</td>
+                                <td className="col-auto">
+                                    <Button variant="light" onClick={ () => {
+                                        if(itemCnt[i] > 1) {
+                                            let copy = [...itemCnt];
+                                            copy[i] -= 1;
+                                            setItemCnt(copy);
+                                        }
+                                    } }>-</Button>
+                                    <input className="row-cols-auto" value={itemCnt[i].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} />
+                                    <Button variant="light" onClick={ () => {
                                         let copy = [...itemCnt];
-                                        copy[i] -= 1;
+                                        copy[i] += 1;
                                         setItemCnt(copy);
-                                    }
-                                } }>-</Button>
-                                <input className="row-cols-auto" value={itemCnt[i]} />
-                                <Button variant="light" onClick={ () => {
-                                    let copy = [...itemCnt];
-                                    copy[i] += 1;
-                                    setItemCnt(copy);
-                                } }>+</Button>
-                            </Col>
-                            <Col>{e.price}</Col>
-                            <Col>{itemCnt[i] * e.price}</Col>
-                        </Row>
-                    </>
-                ) )
-
-
+                                    } }>+</Button>
+                                </td>
+                                <td>{e.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                <td>{(itemCnt[i] * e.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                            </tr>
+                        </>
+                    ) )
                 }
-
-                {/*<Row>*/}
-                {/*    <Col className="col-auto">*/}
-                {/*        <input type="checkbox" id="testId_01" onChange={ (e) => handleSingleCheck(e.target.checked, e.target.id)}*/}
-                {/*            checked={checkItems.includes("testId_01") ? true : false} />*/}
-                {/*    </Col>*/}
-                {/*    <Col></Col>*/}
-                {/*    <Col>*/}
-                {/*        /!*<input defaultValue={itemCnt} onChange={ (e) => chgItemCnt(e) } />*!/*/}
-                {/*        <input defaultValue="1" onChange={ (e) => chgItemCnt(e) } />*/}
-                {/*        <Button variant="Light" onClick={ () => {*/}
-                {/*            console.log("itemCnt : " + itemCnt);*/}
-                {/*            }*/}
-                {/*        }>변경</Button>*/}
-                {/*    </Col>*/}
-                {/*    <Col></Col>*/}
-                {/*    <Col></Col>*/}
-                {/*    <Col>*/}
-                {/*        <Row className="row-cols-auto">*/}
-                {/*            <Link to={"/orderPage"}><Button variant="Light">주문</Button></Link>*/}
-                {/*        </Row>*/}
-                {/*        <Row className="row-cols-auto">*/}
-                {/*            <Button variant="Light">삭제</Button>*/}
-                {/*        </Row>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
-                {/*<Row>*/}
-                {/*    <Col className="col-auto">*/}
-                {/*        <input type="checkbox" id="testId_02" onChange={ (e) => handleSingleCheck(e.target.checked, e.target.id)}*/}
-                {/*               checked={checkItems.includes("testId_02") ? true : false} />*/}
-                {/*    </Col>*/}
-                {/*    <Col></Col>*/}
-                {/*    <Col>*/}
-                {/*        /!*<input defaultValue={itemCnt} onChange={ (e) => chgItemCnt(e) } />*!/*/}
-                {/*        <input defaultValue="1" onChange={ (e) => chgItemCnt(e) } />*/}
-                {/*        <Button variant="Light" onClick={ () => {*/}
-                {/*            console.log("itemCnt : " + itemCnt);*/}
-                {/*            }*/}
-                {/*        }>변경</Button>*/}
-                {/*    </Col>*/}
-                {/*    <Col></Col>*/}
-                {/*    <Col></Col>*/}
-                {/*    <Col>*/}
-                {/*        <Row className="row-cols-auto">*/}
-                {/*            <Link to={"/orderPage"}><Button variant="Light">주문</Button></Link>*/}
-                {/*        </Row>*/}
-                {/*        <Row className="row-cols-auto">*/}
-                {/*            <Button variant="Light">삭제</Button>*/}
-                {/*        </Row>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
-
-
-
-
-                {/*<Row className="justify-content-between row-cols-auto">*/}
-                <Row>
-                    <Col style={ {justifyContent: "flex-end"} }>
-                        <Button onClick={ () => selectItemDel() }>선택삭제</Button>
-                        <Button onClick={ () => allItemDel() }>전체삭제</Button>
-                        <Button>관심상품</Button>
-                    </Col>
-                    <Col>
-                        <Link to={"/orderPage"}><Button >선택상품구매</Button></Link>
-                        <Link to={"/orderPage"}><Button>전체상품구매</Button></Link>
-                    </Col>
-                </Row>
-            </Container>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colSpan="2">
+                            <Button onClick={ () => selectItemDel() }>선택삭제</Button>
+                            <Button onClick={ () => allItemDel() }>전체삭제</Button>
+                            <Button>관심상품</Button>
+                        </td>
+                        <td colSpan="3">
+                            <Link to={"/orderPage"}><Button >선택상품구매</Button></Link>
+                            <Link to={"/orderPage"}><Button>전체상품구매</Button></Link>
+                        </td>
+                    </tr>
+                </tfoot>
+            </Table>
         </>
     )
 
