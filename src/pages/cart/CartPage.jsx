@@ -1,5 +1,3 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import {Col, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
@@ -9,25 +7,14 @@ import {useEffect, useState} from "react";
 import "../../assets/css/Cart.css"
 
 import itemDataApi from "../../services/ItemDataApi.jsx";
-import {forEach} from "react-bootstrap/ElementChildren";
-import item from "../../components/Item.jsx";
 import Title from "../../components/Title.jsx";
+import CartRow from "../../components/CartRow.jsx";
 
 
 function CartPage() {
 
-    // let [tmpCnt, setTmpCnt] = useState(itemCnt);
-
-    // function chgItemCnt(e) {
-    //     setTmpCnt(e.target.value);
-    // }
-
-    // useEffect(() => {
-    //     setItemCnt(tmpCnt);
-    // }, [tmpCnt]);
-
     // 장바구니의 모든 상품을 담을 배열
-    const [cartItemList, setCartItemList] = useState(itemDataApi().recommendItem);
+    const [cartItemList, setCartItemList] = useState(itemDataApi().item);
 
     // 체크 된 아이템을 담을 배열
     const [checkItems, setCheckItems] = useState([]);
@@ -61,49 +48,76 @@ function CartPage() {
     // 선택삭제
     const selectItemDel = () => {
 
-        // if (checkItems.length === 0) {
-        //     alert("선택한 상품이 없습니다.")
-        // }
+        if (checkItems.length === 0) {
+            alert("선택한 상품이 없습니다.")
+        }
+
+        let copy = [...cartItemList];
 
         checkItems.map((a) => {
-            // console.log(a)
-            // setCartItemList(cartItemList.filter( (item) => item.id !== a));
-            // setCartItemList(cartItemList.filter((item) => item.id !== a));
-            // console.log(cartItemList)
-
-            console.log(cartItemList)
-
-            // let copy = cartItemList.filter((item) => item.id !== a);
-            let copy = [...cartItemList];
-            setCartItemList(copy.filter((item) => item.id !== a));
+            copy = copy.filter((item) => item.id !== a);
+            setCartItemList(copy)
             setCheckItems([]);
-
         })
     };
 
     // 전체삭제
     const allItemDel = () => {
         setCartItemList([]);
+        setItemPrice([]);
+        // setTotalPrice(0);
     }
 
-    let [itemCnt, setItemCnt] = useState([]);
+    // 수량
+    const [itemCnt, setItemCnt] = useState([]);
+    // 금액
+    const [itemPrice, setItemPrice] = useState([]);
+    // 상품별 총 금액
+    const [itemTotalPrice, setItemTotalPrice] = useState([]);
+    // 총 금액
+    const [totalPrice, setTotalPrice] = useState(0)
 
-    for(let i = 0; i < cartItemList.length; i++) {
-        itemCnt.push(1);
+    if (itemCnt.length === 0) {
+        for(let i = 0; i < cartItemList.length; i++) {
+            itemCnt.push(1);
+        }
     }
+
+    if (itemPrice.length === 0) {
+        cartItemList.map(item => {
+            itemPrice.push(item.price);
+        })
+    }
+
+    if (itemTotalPrice.length === 0) {
+        cartItemList.forEach(item => {
+            itemTotalPrice.push(item.price);
+        });
+    }
+
+    // useEffect(() => {
+    //
+    //     let sum = 0;
+    //
+    //     itemTotalPrice.map((e) => {
+    //         sum = sum + e;
+    //         setTotalPrice(sum)
+    //     })
+    // }, [])
+
+    useEffect(() => {
+        console.log(itemTotalPrice)
+    }, [itemTotalPrice]);
 
     return (
         <>
             <Title title="장바구니" />
-
-
-
             <Table>
                 <thead>
                     <tr>
                         <th className="col-auto">
                             <input type="checkbox" onChange={ (e) => handleAllCheck(e.target.checked) }
-                                   checked={checkItems.length == cartItemList.length ? true : false} />
+                                   checked={checkItems.length == cartItemList.length} />
                         </th>
                         <th className="col-auto">상품</th>
                         <th className="col-3">수량</th>
@@ -116,33 +130,15 @@ function CartPage() {
                 {
                     cartItemList.map( (e, i) => (
                         <>
-                            <tr>
-                                <td className="col-auto">
-                                    <input type="checkbox" id={e.id} onChange={ (e) => handleSingleCheck(e.target.checked, e.target.id)}
-                                           checked={checkItems.includes(e.id) ? true : false} />
-                                </td>
-                                <td>{e.name}</td>
-                                <td className="col-auto">
-                                    <Button variant="light" onClick={ () => {
-                                        if(itemCnt[i] > 1) {
-                                            let copy = [...itemCnt];
-                                            copy[i] -= 1;
-                                            setItemCnt(copy);
-                                        }
-                                    } }>-</Button>
-                                    <input className="row-cols-auto" value={itemCnt[i].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} />
-                                    <Button variant="light" onClick={ () => {
-                                        let copy = [...itemCnt];
-                                        copy[i] += 1;
-                                        setItemCnt(copy);
-                                    } }>+</Button>
-                                </td>
-                                <td>{e.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                                <td>{(itemCnt[i] * e.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                            </tr>
+                            <CartRow item={e} handleSingleCheck={handleSingleCheck} checkItems={checkItems} itemCnt={itemCnt} setItemCnt={setItemCnt} i={i} itemPrice={itemPrice} setItemPrice={setItemPrice} itemTotalPrice={itemTotalPrice} setItemTotalPrice={setItemTotalPrice} totalPrice={totalPrice} setTotalPrice={setTotalPrice} />
                         </>
+
                     ) )
                 }
+                    <tr>
+                        <td colSpan="4" style={ {textAlign: "right"} }>총 금액 : {totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td> 원</td>
+                    </tr>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -152,8 +148,8 @@ function CartPage() {
                             <Button>관심상품</Button>
                         </td>
                         <td colSpan="3">
-                            <Link to={"/orderPage"}><Button >선택상품구매</Button></Link>
-                            <Link to={"/orderPage"}><Button>전체상품구매</Button></Link>
+                            <Link to={"/orderPage"}><Button>선택상품구매</Button></Link>
+                            <Link to={"/orderPage"}><Button onClick={ () => handleAllCheck(true) }>전체상품구매</Button></Link>
                         </td>
                     </tr>
                 </tfoot>

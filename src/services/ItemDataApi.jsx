@@ -27,7 +27,8 @@ const ItemDataApi = function () {
                 detail: 'detail_01',
                 price: 10000,
                 category: '01',
-                src: "/src/assets/images/item_01.jpg"
+                src: "/src/assets/images/item_01.jpg",
+                recommendYn: 'Y'
             },
             {
                 id: 'item_02',
@@ -35,7 +36,8 @@ const ItemDataApi = function () {
                 detail: 'detail_02',
                 price: 20000,
                 category: '02',
-                src: "/src/assets/images/item_02.jpg"
+                src: "/src/assets/images/item_02.jpg",
+                recommendYn: 'N'
             },
             {
                 id: 'item_03',
@@ -43,7 +45,8 @@ const ItemDataApi = function () {
                 detail: 'detail_03',
                 price: 30000,
                 category: '03',
-                src: "/src/assets/images/item_03.jpg"
+                src: "/src/assets/images/item_03.jpg",
+                recommendYn: 'N'
             },
             {
                 id: 'item_04',
@@ -51,7 +54,8 @@ const ItemDataApi = function () {
                 detail: 'detail_04',
                 price: 40000,
                 category: '04',
-                src: "/src/assets/images/item_04.jpg"
+                src: "/src/assets/images/item_04.jpg",
+                recommendYn: 'Y'
             },
             {
                 id: 'item_05',
@@ -59,33 +63,8 @@ const ItemDataApi = function () {
                 detail: 'detail_05',
                 price: 50000,
                 category: '05',
-                src: "/src/assets/images/item_05.jpg"
-            }
-        ],
-        "recommendItem": [
-            {
-                id: 'item_01',
-                name: 'name_01',
-                detail: 'detail_01',
-                price: 10000,
-                category: '01',
-                src: "/src/assets/images/item_01.jpg"
-            },
-            {
-                id: 'item_03',
-                name: 'name_03',
-                detail: 'detail_03',
-                price: 30000,
-                category: '03',
-                src: "/src/assets/images/item_03.jpg"
-            },
-            {
-                id: 'item_05',
-                name: 'name_05',
-                detail: 'detail_05',
-                price: 50000,
-                category: '05',
-                src: "/src/assets/images/item_05.jpg"
+                src: "/src/assets/images/item_05.jpg",
+                recommendYn: 'Y'
             }
         ],
         "fakerItem": fakerItemList,

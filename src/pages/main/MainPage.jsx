@@ -7,11 +7,8 @@ import Title from "../../components/Title.jsx";
 
 function MainPage() {
 
-    console.log(itemListApi);
-    console.log(typeof (itemListApi()))
-
-    const itemList = itemListApi().recommendItem.map((item) =>
-        <Link to={`/itemDetailPage/${item.id}`}><Item item={item} /></Link>
+    const itemList = itemListApi().item.map((item) =>
+        item.recommendYn === 'Y' ? <Link to={`/itemDetailPage/${item.id}`}><Item item={item} /></Link> : ""
     );
 
     return (

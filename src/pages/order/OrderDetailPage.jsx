@@ -1,5 +1,5 @@
 import {Table} from "react-bootstrap";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function OrderDetailPage() {
 
@@ -42,15 +42,17 @@ function OrderDetailPage() {
         }
     ]
 
+    // 총 금액
     const [totalPrice, setTotalPrice] = useState(0);
 
-    let tmp = 0;
+    useEffect(() => {
+        let sum = 0;
+        orderDetailList.forEach( (item) => {
+            sum = sum + item.orderItemcnt * item.orderItemPrice;
+            setTotalPrice(sum);
+        } )
+    }, []);
 
-    orderDetailList.map((item) => {
-        // console.log(item.orderItemcnt * item.orderItemPrice);
-        tmp += item.orderItemcnt * item.orderItemPrice;
-        // setTotalPrice(tmp)
-    })
 
 
     return (
@@ -83,7 +85,7 @@ function OrderDetailPage() {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan="5" style={ {textAlign: "right"} }>총 금액 : </td>
+                        <td colSpan="5" style={ {textAlign: "right"} }>총 금액 : {totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     </tr>
                 </tfoot>
             </Table>

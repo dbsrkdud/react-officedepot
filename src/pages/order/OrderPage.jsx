@@ -1,6 +1,8 @@
 import {Row, Col, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
+import OrderRow from "../../components/OrderRow.jsx";
+import {useEffect, useState} from "react";
 
 function OrderPage() {
 
@@ -22,24 +24,38 @@ function OrderPage() {
         }
     ]
 
+    // 총 금액
+    const [totalPrice, setTotalPrice] = useState(0);
+    // 배송비
+    const [deliveryPrice, setDeliveryPrice] = useState(0);
+
+    useEffect(() => {
+        let sum = 0;
+
+        orderList.forEach((item) => {
+            sum = sum += item.orderItemcnt * item.orderItemPrice;
+            setTotalPrice(sum);
+        })
+    }, [])
+
     return (
         <>
             {/*<Container>*/}
-            {/*    <Row>*/}
+            {/*    <CartRow>*/}
             {/*        <Col className="col-auto" style={ { display: "flex", float: "left" } }>주문자</Col>*/}
             {/*        <Col><input type="text" /></Col>*/}
-            {/*    </Row>*/}
-            {/*    <Row>*/}
+            {/*    </CartRow>*/}
+            {/*    <CartRow>*/}
             {/*        <Col className="col-auto">휴대폰</Col>*/}
             {/*        <Col><input type="text" />-<input type="text" />-<input type="text" /></Col>*/}
-            {/*    </Row>*/}
-            {/*    <Row>*/}
+            {/*    </CartRow>*/}
+            {/*    <CartRow>*/}
             {/*        <Col className="col-auto">주소</Col>*/}
             {/*        <Col>*/}
-            {/*            <Row className="row-cols-auto"><input type="text" /><button>우편번호검색</button></Row>*/}
+            {/*            <CartRow className="row-cols-auto"><input type="text" /><button>우편번호검색</button></CartRow>*/}
             {/*            <input type="text" /><input type="text" />*/}
             {/*        </Col>*/}
-            {/*    </Row>*/}
+            {/*    </CartRow>*/}
             {/*</Container>*/}
 
             <h2>주문하기</h2>
@@ -59,13 +75,7 @@ function OrderPage() {
                 {
                     orderList.map( (item) => (
                         <>
-                            <tr>
-                                <td><img src={item.orderItemImg} className="itemImg"></img></td>
-                                <td>{item.orderItemName}</td>
-                                <td>{item.orderItemcnt}</td>
-                                <td>{item.orderItemPrice}</td>
-                                <td>{item.orderItemcnt * item.orderItemPrice}</td>
-                            </tr>
+                            <OrderRow item={item} />
                         </>
                     ) )
                 }
@@ -73,7 +83,7 @@ function OrderPage() {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan="5" style={ {textAlign: "right"} }>총 금액 : </td>
+                        <td colSpan="5" style={ {textAlign: "right"} }>총 금액 : {totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     </tr>
                 </tfoot>
 
@@ -118,9 +128,9 @@ function OrderPage() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>10,000</td>
-                        <td>0</td>
-                        <td>10,000</td>
+                        <td>{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{deliveryPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{(totalPrice + deliveryPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                     </tr>
                 </tbody>
             </Table>

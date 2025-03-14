@@ -62,6 +62,9 @@ function OrderRetrievePage () {
                                     <Button variant="light">배송조회</Button>
                                 </td>
                                 <td>
+                                    {
+
+                                    }
                                     <Button variant="light">확정/취소</Button>
                                 </td>
                             </tr>

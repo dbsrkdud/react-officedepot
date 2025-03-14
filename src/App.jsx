@@ -26,9 +26,9 @@ function App() {
                 <Row>
                     <Header />
                 </Row>
-                {/*<Row className="mb-5">*/}
+                {/*<CartRow className="mb-5">*/}
                 {/*    <NavBar />*/}
-                {/*</Row>*/}
+                {/*</CartRow>*/}
             </Container>
             <Routes>
                 <Route path="/" element={<MainPage />} />

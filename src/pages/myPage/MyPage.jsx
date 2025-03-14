@@ -9,6 +9,12 @@ function MyPage() {
     const [pwVisible, setPwVisible] = useState(false);
     const [mailVisible, setMailVisible] = useState(false);
 
+    const [password, setPassword] = useState("");
+    const [inputPassword, setInputPassWord] = useState("");
+
+    const [mail, setMail] = useState("test@test.com");
+    const [inputMail, setInputMail] = useState("");
+
     return (
         <>
             <Title title="마이페이지" />
@@ -32,12 +38,15 @@ function MyPage() {
                     </tr>
                     <tr>
                         <td rowSpan="2">비밀번호</td>
-                        <td style={ {textAlign: "left"} }><Button variant="light" onClick={ () => {
+                        <td style={ {textAlign: "left"} }>{password}<Button variant="light" onClick={ () => {
                             setPwVisible(true);
                         } }>변경</Button></td>
                     </tr>
                     <tr>
-                        { pwVisible &&  <td style={ {textAlign: "left"} }><input type="text" /><Button variant="light" onClick={ () => {
+                        { pwVisible &&  <td style={ {textAlign: "left"} }><input type="text" onChange={ (e) => {
+                            setInputPassWord(e.target.value);
+                        } } /><Button variant="light" onClick={ () => {
+                            setPassword(inputPassword);
                             setPwVisible(!pwVisible);
                         } }>확인</Button></td> }
                     </tr>
@@ -47,12 +56,15 @@ function MyPage() {
                     </tr>
                     <tr>
                         <td rowSpan="2">이메일</td>
-                        <td style={ {textAlign: "left"} }>test@test.com<Button variant="light" onClick={ () => {
+                        <td style={ {textAlign: "left"} }>{mail}<Button variant="light" onClick={ () => {
                             setMailVisible(true);
                         } }>변경</Button></td>
                     </tr>
                     <tr>
-                        { mailVisible && <td style={ {textAlign: "left"} }><input type="text" /><Button variant="light" onClick={ () => {
+                        { mailVisible && <td style={ {textAlign: "left"} }><input type="text" onChange={ (e) => {
+                            setInputMail(e.target.value);
+                        } } /><Button variant="light" onClick={ () => {
+                            setMail(inputMail);
                             setMailVisible(!mailVisible);
                         } }>확인</Button></td> }
                     </tr>
