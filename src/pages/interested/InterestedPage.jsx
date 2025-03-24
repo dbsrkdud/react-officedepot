@@ -1,26 +1,38 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import {Col} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import ItemDataApi from "../../services/ItemDataApi.jsx";
-import Button from "react-bootstrap/Button";
+import Title from "../../components/Title.jsx";
+import {useLocation} from "react-router-dom";
+import itemDataApi from "../../services/ItemDataApi.jsx";
 
 function InterestedPage() {
 
-    let [itemCnt, setItemCnt] = useState(1);
-    let [tmpCnt, setTmpCnt] = useState(itemCnt);
+    const location = useLocation();
 
-    useEffect(() => {
-        setItemCnt(tmpCnt);
-    }, [tmpCnt]);
+    const [checkItemList, setCheckItemList] = useState(location.state.checkItems);
+    const [itemList, setItemList] = useState(itemDataApi().item);
+
+    console.log(checkItemList)
 
     // 관심상품의 모든 상품을 담을 배열
-    const [interestedItems, setInterestedItems] = useState(ItemDataApi().fakerItem);
+    // const [interestedItems, setInterestedItems] = useState(ItemDataApi().fakerItem);
+    const [interestedItems, setInterestedItems] = useState([]);
 
-    console.log(interestedItems)
+    useEffect(() => {
+        itemList.forEach((item, i) => {
+
+            if (checkItemList.includes(itemList[i].id)) {
+                console.log(itemList[i].id)
+                // console.log(itemList[i])
+                // setOrderList(orderList.concat(itemList[i]))
+                // setOrderList([...orderList, itemList[i]]);
+                // console.log(orderList)
+                setInterestedItems(prevArr => [...prevArr, itemList[i]])
+            }
+        })
+    }, []);
 
     // 체크 된 아이템을 담을 배열
-    const [checkItems, setCheckItems] = useState([])
+    const [checkItems, setCheckItems] = useState([]);
 
     // 체크박스 개별 선택
     const handleSingleCheck = (checked, id) => {
@@ -39,7 +51,7 @@ function InterestedPage() {
         if(checked) {
             // 전체 선택 클릭 시 데이터의 모든 아이템(id)를 담은 배열로 checkItems 상태 업데이트
             const idArray = [];
-            // cartItemList.forEach((el) => idArray.push(el.id));
+            interestedItems.forEach((el) => idArray.push(el.id));
             setCheckItems(idArray);
         }
         else {
@@ -48,46 +60,57 @@ function InterestedPage() {
         }
     }
 
+    // 선택삭제
+    const selectItemDel = () => {
+
+        if (checkItems.length === 0) {
+            alert("선택한 상품이 없습니다.")
+        }
+
+        let copy = [...interestedItems];
+
+        checkItems.map((a) => {
+            copy = copy.filter((item) => item.id !== a);
+            setInterestedItems(copy)
+            setCheckItems([]);
+        })
+    };
+
     return (
         <>
-            <h3>관심상품</h3>
-            <Container>
-                <Row>
-                    <Col className="col-auto">
-                        <input type="checkbox" onChange={ (e) => handleAllCheck(e.target.checked) } />
-                    </Col>
-                    <Col>
-                        <h5>상품</h5>
-                    </Col>
-                    <Col>
-                        <h5>금액</h5>
-                    </Col>
-                </Row>
+            <Title title="관심상품" />
+            <Table>
+                <thead>
+                    <tr>
+                        <th className="col-auto"><input type="checkbox" onChange={ (e) => handleAllCheck(e.target.checked) }
+                                   checked={checkItems.length == interestedItems.length} /></th>
+                        <th className="col-auto">상품</th>
+                        <th className="col-auto">금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        interestedItems.map( (item) => (
+                            <>
+                                <tr>
+                                    <td className="col-auto">
+                                        <input type="checkbox" onChange={ (e) => handleSingleCheck(e.target.checked, item.id) }
+                                               checked={checkItems.includes(item.id) ? true : false} />
+                                    </td>
+                                    <td className="col-auto" style={ {textAlign: "left"} }>
+                                        <img src={item.src} style={ {width: "150px"} }></img>
+                                        {item.name}
+                                    </td>
+                                    <td className="col-auto">
+                                        {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                    </td>
+                                </tr>
+                            </>
+                        ) )
+                    }
+                </tbody>
+            </Table>
 
-                {
-                    interestedItems.map( (e) => (
-                        <>
-                            <Row>
-                                <Col className="col-auto">
-                                    <input type="checkbox" onChange={ (e) => handleSingleCheck(e.target.checked, e.target.id) } />
-                                </Col>
-                                <Col>
-                                    {e.productName}
-                                </Col>
-                                <Col>
-                                    {e.price}
-                                </Col>
-                            </Row>
-                        </>
-                    ) )
-                }
-
-                <Row style={ {justifyContent: "left"} }>
-                    <Col>
-                        <Button>삭제</Button>
-                    </Col>
-                </Row>
-            </Container>
         </>
     )
 }

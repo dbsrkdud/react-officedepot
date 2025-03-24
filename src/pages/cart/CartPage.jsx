@@ -1,7 +1,7 @@
-import {Col, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 import "../../assets/css/Cart.css"
@@ -12,6 +12,8 @@ import CartRow from "../../components/CartRow.jsx";
 
 
 function CartPage() {
+
+    const navigate = useNavigate();
 
     // 장바구니의 모든 상품을 담을 배열
     const [cartItemList, setCartItemList] = useState(itemDataApi().item);
@@ -65,7 +67,7 @@ function CartPage() {
     const allItemDel = () => {
         setCartItemList([]);
         setItemPrice([]);
-        // setTotalPrice(0);
+        setTotalPrice(0);
     }
 
     // 수량
@@ -95,19 +97,14 @@ function CartPage() {
         });
     }
 
-    // useEffect(() => {
-    //
-    //     let sum = 0;
-    //
-    //     itemTotalPrice.map((e) => {
-    //         sum = sum + e;
-    //         setTotalPrice(sum)
-    //     })
-    // }, [])
-
     useEffect(() => {
-        console.log(itemTotalPrice)
-    }, [itemTotalPrice]);
+        let sum = 0;
+
+        itemTotalPrice.map((price) => {
+            sum = sum + price;
+            setTotalPrice(sum)
+        })
+    }, [])
 
     return (
         <>
@@ -132,7 +129,6 @@ function CartPage() {
                         <>
                             <CartRow item={e} handleSingleCheck={handleSingleCheck} checkItems={checkItems} itemCnt={itemCnt} setItemCnt={setItemCnt} i={i} itemPrice={itemPrice} setItemPrice={setItemPrice} itemTotalPrice={itemTotalPrice} setItemTotalPrice={setItemTotalPrice} totalPrice={totalPrice} setTotalPrice={setTotalPrice} />
                         </>
-
                     ) )
                 }
                     <tr>
@@ -145,11 +141,36 @@ function CartPage() {
                         <td colSpan="2">
                             <Button onClick={ () => selectItemDel() }>선택삭제</Button>
                             <Button onClick={ () => allItemDel() }>전체삭제</Button>
-                            <Button>관심상품</Button>
+                            <Button onClick={ () => {
+                                if (checkItems.length === 0) {
+                                    alert('선택한 상품이 없습니다.');
+                                } else {
+                                    navigate('/interestedPage', {state: {checkItems}});
+                                }
+                            } }>관심상품</Button>
                         </td>
-                        <td colSpan="3">
-                            <Link to={"/orderPage"}><Button>선택상품구매</Button></Link>
-                            <Link to={"/orderPage"}><Button onClick={ () => handleAllCheck(true) }>전체상품구매</Button></Link>
+                        <td colSpan="2" style={ {textAlign: "right"} }>
+                            {/*<Link to={'/orderPage'} state={{checkItems: checkItems, itemCnt: itemCnt}}><Button onClick={() => {*/}
+                            {/*    if (checkItems.length === 0) {*/}
+                            {/*        alert('선택한 상품이 없습니다');*/}
+
+                            {/*    }*/}
+                            {/*    // console.log(checkItems)*/}
+                            {/*}}>선택상품구매</Button></Link>*/}
+                            {
+                                // (checkItems.length === 0) ? <Button onClick={() => alert('선택한 상품이 없습니다')}>선택상품구매</Button> :
+                                //     <Link to={'/orderPage'} state={{checkItems: checkItems, itemCnt: itemCnt}}><Button>선택상품구매</Button></Link>
+                            }
+                            <Button onClick={() => {
+                                if (checkItems.length === 0) {
+                                    alert("선택한 상품이 없습니다.");
+                                } else {
+                                    navigate('/orderPage', {state: {checkItems}});
+                                }
+                            }}>선택상품구매</Button>
+                        </td>
+                        <td>
+                            <Link to={`/orderPage`} state={{checkItems: checkItems}}><Button onClick={ () => handleAllCheck(true) }>전체상품구매</Button></Link>
                         </td>
                     </tr>
                 </tfoot>

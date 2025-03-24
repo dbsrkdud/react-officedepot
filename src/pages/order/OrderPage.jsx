@@ -1,28 +1,58 @@
-import {Row, Col, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import OrderRow from "../../components/OrderRow.jsx";
 import {useEffect, useState} from "react";
+import DaumPostcode from 'react-daum-postcode';
+import Modal from "react-modal"
+import Title from "../../components/Title.jsx";
+import itemDataApi from "../../services/ItemDataApi.jsx";
 
 function OrderPage() {
 
-    const orderList = [
-        {
-            orderItemId: 'id_01',
-            orderItemImg: '/src/assets/images/item_01.jpg',
-            orderItemName: 'item_01',
-            orderItemcnt: 2,
-            orderItemPrice: 100000
+    const location = useLocation();
+    const { checkItems: checkItems } = location.state;
+    const { itemCnt: itemCnt } = location.state;
 
-        },
-        {
-            orderItemId: 'id_02',
-            orderItemImg: '/src/assets/images/item_04.jpg',
-            orderItemName: 'item_04',
-            orderItemcnt: 5,
-            orderItemPrice: 20500
-        }
-    ]
+
+    const [itemList, setItemList] = useState(itemDataApi().item);
+    const [orderList, setOrderList] = useState([]);
+
+    // const [orderList, setOrderList] = useState([
+    //     {
+    //         orderItemId: 'id_01',
+    //         orderItemImg: '/src/assets/images/item_01.jpg',
+    //         orderItemName: 'item_01',
+    //         orderItemcnt: 2,
+    //         orderItemPrice: 100000
+    //
+    //     },
+    //     {
+    //         orderItemId: 'id_02',
+    //         orderItemImg: '/src/assets/images/item_04.jpg',
+    //         orderItemName: 'item_04',
+    //         orderItemcnt: 5,
+    //         orderItemPrice: 20500
+    //     }
+    // ]);
+
+
+
+    useEffect(() => {
+        itemList.forEach((item, i) => {
+            if (checkItems.includes(itemList[i].id)) {
+                // console.log(itemList[i])
+                // setOrderList(orderList.concat(itemList[i]))
+                // setOrderList([...orderList, itemList[i]]);
+                // console.log(orderList)
+                setOrderList(prevArr => [...prevArr, itemList[i]])
+            }
+        })
+    }, []);
+
+
+
+
 
     // 총 금액
     const [totalPrice, setTotalPrice] = useState(0);
@@ -36,29 +66,50 @@ function OrderPage() {
             sum = sum += item.orderItemcnt * item.orderItemPrice;
             setTotalPrice(sum);
         })
-    }, [])
+    }, []);
+
+
+    // Modal 스타일
+    const customStyles = {
+        overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+        content: {
+            left: "0",
+            margin: "auto",
+            width: "500px",
+            height: "600px",
+            padding: "0",
+            overflow: "hidden",
+        },
+    };
+
+    const [zipCode, setZipcode] = useState("");
+    const [roadAddress, setRoadAddress] = useState("");
+    const [detailAddress, setDetailAddress] = useState("");    // 추가
+    const [isOpen, setIsOpen] = useState(false);
+
+
+    const completeHandler = (data) => {
+        setZipcode(data.zonecode);
+        setRoadAddress(data.roadAddress);
+        setIsOpen(false); //추가
+    }
+
+
+    // 검색 클릭
+    const toggle = () => {
+        setIsOpen(!isOpen);
+    }
+
+    // 상세 주소검색 event
+    const changeHandler = (e) => {
+        setDetailAddress(e.target.value);
+    }
 
     return (
         <>
-            {/*<Container>*/}
-            {/*    <CartRow>*/}
-            {/*        <Col className="col-auto" style={ { display: "flex", float: "left" } }>주문자</Col>*/}
-            {/*        <Col><input type="text" /></Col>*/}
-            {/*    </CartRow>*/}
-            {/*    <CartRow>*/}
-            {/*        <Col className="col-auto">휴대폰</Col>*/}
-            {/*        <Col><input type="text" />-<input type="text" />-<input type="text" /></Col>*/}
-            {/*    </CartRow>*/}
-            {/*    <CartRow>*/}
-            {/*        <Col className="col-auto">주소</Col>*/}
-            {/*        <Col>*/}
-            {/*            <CartRow className="row-cols-auto"><input type="text" /><button>우편번호검색</button></CartRow>*/}
-            {/*            <input type="text" /><input type="text" />*/}
-            {/*        </Col>*/}
-            {/*    </CartRow>*/}
-            {/*</Container>*/}
-
-            <h2>주문하기</h2>
+            <Title title={"주문하기"}/>
 
             <Table>
                 <thead>
@@ -110,10 +161,19 @@ function OrderPage() {
                     </tr>
                     <tr>
                         <td rowSpan="2">주소</td>
-                        <td style={ { textAlign: "left" } }><input type="text" /> <button>우편번호검색</button></td>
+                        <td style={ { textAlign: "left" } }><input value={zipCode} readOnly placeholder="우편번호" />
+                            <button onClick={toggle}>우편번호검색</button>
+
+                            {/*<Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={customStyles} >*/}
+                            {/*    <DaumPostcode onComplete={completeHandler} height="100%" />*/}
+                            {/*</Modal>*/}
+                            <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} ariaHideApp={false} style={customStyles}>
+                                <DaumPostcode onComplete={completeHandler} height="100%" />
+                            </Modal>
+                        </td>
                     </tr>
                     <tr>
-                        <td style={ { textAlign: "left" } }><input type="text" /> <input type="text" /></td>
+                        <td style={ { textAlign: "left" } }><input value={roadAddress} readOnly placeholder="도로명 주소" /> <input type="text" onChange={changeHandler} value={detailAddress} placeholder="상세주소" /></td>
                     </tr>
                 </tbody>
             </Table>
@@ -136,7 +196,9 @@ function OrderPage() {
             </Table>
             <div>
                 <Button variant="primary">주문하기</Button>
-                <Link to={"/cartPage"}><Button variant="primary">취소하기</Button></Link>
+                <Link to={"/cartPage"}><Button variant="primary" onClick={() => {
+                    setOrderList([]);
+                }}>취소하기</Button></Link>
             </div>
 
         </>
